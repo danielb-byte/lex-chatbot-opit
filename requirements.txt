@@ -6,6 +6,6 @@ langchain-huggingface==0.1.2
 langchain-ollama==0.2.0
 chromadb==0.5.18
 sentence-transformers==3.2.1
-huggingface-hub==0.26.2
+huggingface-hub>=0.30
 pandas>=2
 protobuf<5

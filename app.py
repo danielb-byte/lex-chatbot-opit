@@ -27,7 +27,7 @@ COLLECTION  = "lex_fridman_podcast"
 EMBED_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
 LIMIT       = 30                       # episodes; set to None for the full 319
 OLLAMA_HOST = os.environ.get("OLLAMA_HOST", "http://localhost:11434")
-HF_MODEL    = "microsoft/Phi-3-mini-4k-instruct"
+HF_MODEL    = "Qwen/Qwen2.5-7B-Instruct"
 
 PROMPT = PromptTemplate.from_template(
     """You are answering questions using ONLY the excerpts from the
@@ -106,14 +106,28 @@ def get_llm():
             "`HUGGINGFACEHUB_API_TOKEN` in Streamlit secrets."
         )
         st.stop()
-    from langchain_community.llms import HuggingFaceEndpoint
-    llm = HuggingFaceEndpoint(
-        repo_id=HF_MODEL,
-        huggingfacehub_api_token=token,
-        max_new_tokens=512,
-        temperature=0.2,
-    )
-    return llm, f"Hugging Face Inference API ({HF_MODEL})"
+    from huggingface_hub import InferenceClient
+    from langchain_core.language_models.llms import LLM
+    from typing import List, Optional
+
+    _tok, _mdl = token, HF_MODEL
+
+    class HFInferenceLLM(LLM):
+        @property
+        def _llm_type(self) -> str:
+            return "hf_inference_providers"
+
+        def _call(self, prompt: str, stop: Optional[List[str]] = None, **kwargs) -> str:
+            client = InferenceClient(token=_tok)
+            resp = client.chat.completions.create(
+                model=_mdl,
+                messages=[{"role": "user", "content": prompt}],
+                max_tokens=512,
+                temperature=0.2,
+            )
+            return resp.choices[0].message.content
+
+    return HFInferenceLLM(), f"HF Inference Providers ({HF_MODEL})"
 
 
 # ----- UI -------------------------------------------------------------------
