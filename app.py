@@ -1,3 +1,6 @@
+import os
+os.environ["PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION"] = "python"
+
 """Lex Fridman Podcast Chatbot — Streamlit interface.
 
 Author: Daniel Birsan, May 2026.
