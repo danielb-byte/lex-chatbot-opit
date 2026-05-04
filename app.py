@@ -52,8 +52,8 @@ def ollama_up() -> bool:
 @st.cache_resource(show_spinner="Fetching the dataset (first launch only) …")
 def fetch_dataset():
     if not Path(CSV_NAME).exists():
-        subprocess.check_call(["git", "clone", "--depth", "1", MIRROR, "/tmp/lexpod"])
-        Path("/tmp/lexpod/podcastdata_dataset.csv").rename(CSV_NAME)
+        subprocess.check_call(["git", "clone", "--depth", "1", MIRROR, "./_lexpod"])
+        Path("./_lexpod/podcastdata_dataset.csv").rename(CSV_NAME)
     import pandas as pd
     return pd.read_csv(CSV_NAME)
 
