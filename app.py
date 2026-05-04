@@ -27,7 +27,7 @@ COLLECTION  = "lex_fridman_podcast"
 EMBED_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
 LIMIT       = 30                       # episodes; set to None for the full 319
 OLLAMA_HOST = os.environ.get("OLLAMA_HOST", "http://localhost:11434")
-HF_MODEL    = "mistralai/Mistral-7B-Instruct-v0.3"
+HF_MODEL    = "microsoft/Phi-3-mini-4k-instruct"
 
 PROMPT = PromptTemplate.from_template(
     """You are answering questions using ONLY the excerpts from the
