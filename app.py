@@ -3,7 +3,7 @@ os.environ["PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION"] = "python"
 
 """Lex Fridman Podcast Chatbot — Streamlit interface.
 
-Author: Daniel Birsan, May 2026.
+Author: Daniel Birsan, August 2026.
 """
 import os
 import subprocess
@@ -141,7 +141,7 @@ st.caption(
     "Ask anything about the conversations on the Lex Fridman Podcast. "
     "Answers are grounded in episode transcripts via a local Chroma vector "
     "database. Built for the OPIT *Applications in Data Science and AI – Part 2* "
-    "reassessment by Daniel Birsan."
+    "Annual Reassessment by Daniel Birsan."
 )
 
 vectordb = get_vectordb()
